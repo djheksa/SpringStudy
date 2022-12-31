@@ -5,10 +5,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
 	<!-- typeAlias 타입 별칭 설정 =============================== -->
 	<typeAliases>
-<!-- 		<typeAlias type="com.memo.model.MemoVO" alias="Memo"/> -->
+		<!-- <typeAlias type="com.memo.model.MemoVO" alias="Memo"/> -->
+		<typeAlias type="org.zerock.domain.MemberVO" alias="Member" />
+		<typeAlias type="org.zerock.domain.AuthVO" alias="Auth" />
 	</typeAliases>
 	<!-- mapper 정의 ========================================= -->
 	<mappers>
-<!-- 		<mapper resource="config/mybatis/mapper/MemoMapper.xml"/> -->
+		<!-- <mapper resource="config/mybatis/mapper/MemoMapper.xml"/> -->
+		<mapper resource="config/mybatis/mapper/MemberMapper.xml" />
 	</mappers>
 </configuration>

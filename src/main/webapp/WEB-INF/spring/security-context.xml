@@ -7,24 +7,42 @@
 	
 	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
 	<bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
+<!-- 패스워드 인코딩을 사용하는 방식 -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+<!-- 패스워드 인코딩을 사용하지 않는 방식 -->
+<!-- 	<bean id="customPasswordEncoder" class="org.zerock.security.CustomNoOpPasswordEncoder"></bean> -->
 	<security:http>
 		<security:intercept-url pattern="/auth/general" access="permitAll"/>
 		<security:intercept-url pattern="/auth/member" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/auth/admin" access="hasRole('ROLE_ADMIN')"/>
 		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
 		<security:logout logout-url="/customLogout" invalidate-session="true"/>
-<!-- 		권한이없는 페이지 접근 403 발생시 이동할 요청경로 지정 -->
-<!-- 		<security:access-denied-handler error-page="/accessError"/> -->
+		
+<!-- 	권한이없는 페이지 접근 403 발생시 이동할 요청경로 지정 -->
 		<security:access-denied-handler ref="customAccessDenied"/>
+<!-- 	<security:access-denied-handler error-page="/accessError"/> -->
 		
 	</security:http>
 	
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
-				<security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN,ROLE_MEMBER"/>
-			</security:user-service>
+			<!-- jdbc 방식 -->
+			<security:jdbc-user-service data-source-ref="dataSource" users-by-username-query="
+				select userid , userpw, enabled from tbl_member where userid = ?
+			" authorities-by-username-query="
+				select userid, auth from tbl_member_auth where userid= ?
+			"/>
+			<!-- 패스워드 인코딩을 사용하는 방식 -->
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+			
+			<!-- 패스워드 인코딩을 사용하지 않는방식			 -->
+<!-- 			<security:password-encoder ref="customPasswordEncoder"/> -->
+			<!-- db사용 안하는 방식 -->
+<!-- 		<security:user-service> -->
+<!-- 			<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/> -->
+<!-- 			<security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN,ROLE_MEMBER"/> -->
+<!-- 		</security:user-service> -->
+
 		</security:authentication-provider>
 	</security:authentication-manager>
 	
