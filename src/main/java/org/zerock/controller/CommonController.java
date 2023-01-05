@@ -21,7 +21,7 @@ public class CommonController {
 		//String error , String logout 변수타입과 이름은 고정임 스프링시큐리티에서 자동으로 값을 각 동작을 하였을때 값을 넣어주는 변수들임
 		log.info("error: "+error);
 		log.info("logout: "+logout);
-		
+		model.addAttribute("result","test성공~!~!~!~");
 		if(error != null) {
 			model.addAttribute("error","Login Error Check Your Account");
 		}
