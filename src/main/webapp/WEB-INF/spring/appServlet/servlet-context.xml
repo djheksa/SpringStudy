@@ -39,14 +39,13 @@
 	<beans:bean id="uploadDirectory" class="java.lang.String">
 		<beans:constructor-arg value="C:/main_dev_WorkPlace/uploadDirectory"/>
 	</beans:bean>
-	<!-- interceptor 요청경로 지정 , 실행할 클래스 지정 -->
-<!-- 	<interceptors> -->
-<!-- 		<interceptor> -->
-<!-- 			<mapping path="/user/**"/> -->
-<!-- 			<mapping path="/admin/**"/> -->
-<!-- 			<beans:bean class=""/> -->
-<!-- 		</interceptor>	 -->
-<!-- 	</interceptors> -->
+<!-- 	interceptor 요청경로 지정 , 실행할 클래스 지정 -->
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:bean class="org.zerock.interceptor.LogInterceptor"/>
+		</interceptor>	
+	</interceptors>
 	
 		
 	<!--  ==============서버 컨트롤러를 거치지 않는 view 파일 지정============= -->
