@@ -64,8 +64,6 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.17</version>
 		</dependency>
-<<<<<<< HEAD
-=======
 		<!-- jdbc 실행 결과 로그 출력용 -->
 		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1 -->
 		<dependency>
@@ -73,7 +71,6 @@
 			<artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
 			<version>1.16</version>
 		</dependency>
->>>>>>> bc80612342ee995115689428303e4456653fd3aa
 
 		<!-- @Inject -->
 		<dependency>
@@ -141,11 +138,7 @@
 			<artifactId>spring-security-taglibs</artifactId>
 			<version>5.0.7.RELEASE</version>
 		</dependency>
-<<<<<<< HEAD
-		
-=======
 
->>>>>>> bc80612342ee995115689428303e4456653fd3aa
 		<!-- https://mvnrepository.com/artifact/org.springframework/spring-test -->
 		<dependency>
 			<groupId>org.springframework</groupId>

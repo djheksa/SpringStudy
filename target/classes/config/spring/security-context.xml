@@ -7,24 +7,49 @@
 	
 	<bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"></bean>
 	<bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"></bean>
+	<bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"></bean>
+<!-- 패스워드 인코딩을 사용하는 방식 -->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+<!-- 패스워드 인코딩을 사용하지 않는 방식 -->
+<!-- 	<bean id="customPasswordEncoder" class="org.zerock.security.CustomNoOpPasswordEncoder"></bean> -->
 	<security:http>
 		<security:intercept-url pattern="/auth/general" access="permitAll"/>
 		<security:intercept-url pattern="/auth/member" access="hasRole('ROLE_MEMBER')"/>
 		<security:intercept-url pattern="/auth/admin" access="hasRole('ROLE_ADMIN')"/>
 		<security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
-		<security:logout logout-url="/customLogout" invalidate-session="true"/>
-<!-- 		권한이없는 페이지 접근 403 발생시 이동할 요청경로 지정 -->
-<!-- 		<security:access-denied-handler error-page="/accessError"/> -->
+		<security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me,JSESSION_ID"/>
+		
+<!-- 	권한이없는 페이지 접근 403 발생시 이동할 요청경로 지정 -->
 		<security:access-denied-handler ref="customAccessDenied"/>
+<!-- 자동로그인 관련 설정 및 사용할 DB 빈 지정 ; token-validity-seconds == 자동로그인 유지 시간 지금은 7일간 유지되게 설정-->
+		<security:remember-me data-source-ref="dataSource" token-validity-seconds="604800" remember-me-parameter="autoLogin"/>
+<!-- 	<security:access-denied-handler error-page="/accessError"/> -->
 		
 	</security:http>
 	
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
-				<security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN,ROLE_MEMBER"/>
-			</security:user-service>
+<!-- user-serivce-ref 에 UserDetailsSerice 빈을 등록하여 사용시 jdbc 방식을 사용할 필요가 없다 	
+CustomUserDetailsSerice에 Mapper를 주입받아 사용하기 때문 즉 mybatis를 할용하여 DB를 조회하는 방식  -->
+		<security:authentication-provider user-service-ref="customUserDetailsService">
+			<!-- 패스워드 인코딩을 사용하는 방식 -->
+			<security:password-encoder ref="bcryptPasswordEncoder"/>
+			<!-- 패스워드 인코딩을 사용하지 않는방식			 -->
+<!-- 			<security:password-encoder ref="customPasswordEncoder"/> -->
+			<!-- jdbc 방식 -->
+<!-- 		<security:jdbc-user-service data-source-ref="dataSource" users-by-username-query=" -->
+<!-- 				select userid , userpw, enabled from tbl_member where userid = ? -->
+<!-- 			" authorities-by-username-query=" -->
+<!-- 				select userid, auth from tbl_member_auth where userid= ? -->
+<!-- 		"/> -->
+			<!-- db사용 안하는 방식 -->
+<!-- 		<security:user-service> -->
+<!-- 			<security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/> -->
+<!-- 			<security:user name="admin" password="{noop}admin" authorities="ROLE_ADMIN,ROLE_MEMBER"/> -->
+<!-- 		</security:user-service> -->
+			
+			
+
+
 		</security:authentication-provider>
 	</security:authentication-manager>
 	

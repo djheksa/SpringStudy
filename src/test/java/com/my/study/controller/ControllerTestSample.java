@@ -18,8 +18,8 @@ import lombok.extern.log4j.Log4j;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 //스프링 컨텍스트 생성시 참조할 파일 지정 이외에 security-context, aop-context 등등..
-@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml,"
-		+ "file/src/main/resources/config/spring/datasource-context.xml"})
+@ContextConfiguration({"file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml",
+		"file:src/main/resources/config/spring/datasource-context.xml"})
 @Log4j
 public class ControllerTestSample {
 	
