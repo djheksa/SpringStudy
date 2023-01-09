@@ -13,6 +13,7 @@
 <script type="text/javascript">
 	const IMP = window.IMP; // 생략 가능
 	IMP.init("imp82348088"); // 예: imp00000000a
+	
 	function importTest() {
 		IMP.request_pay({
 			pg: "kcp.T0000",
@@ -29,24 +30,24 @@
 		}, function (rsp) { // callback
 		      $.ajax({
 		    	  method: "post",
-		    	  url: "importEnd",
+		    	  url: "importEnd/"+rsp.imp_uid,
 		    	  headers: { "Content-Type": "application/json" },
-		    	  data:{
-		    		  imp_uid: rsp.imp_uid,
-			          merchant_uid: rsp.merchant_uid
-		    	  }
-		      }).done(function (data)){
+// 		    	  data:{
+// 		    		  imp_uid: rsp.imp_uid,
+// 			          merchant_uid: rsp.merchant_uid
+// 		    	  }
+		      }).done(function (data){
 		    	  console.log(data);
 			        if(rsp.paid_amount == data.response.amount){
 				       	alert("결제 및 결제검증완료");
 			        } else {
 			        	alert("결제 실패");
 			        }
-		}.fail(function (err)){
+		}).fail(function (err){
 			alert("결제검증 실패"+err.error)
-		}
 			})
-		}
+		})
+	}
 </script>
 <title>Insert title here</title>
 </head>

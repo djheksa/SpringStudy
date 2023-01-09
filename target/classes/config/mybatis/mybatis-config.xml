@@ -6,8 +6,8 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- typeAlias 타입 별칭 설정 =============================== -->
 	<typeAliases>
 		<!-- <typeAlias type="com.memo.model.MemoVO" alias="Memo"/> -->
-		<typeAlias type="org.zerock.domain.MemberVO" alias="Member" />
-		<typeAlias type="org.zerock.domain.AuthVO" alias="Auth" />
+		<typeAlias type="org.zerock.security.domain.MemberVO" alias="Member" />
+		<typeAlias type="org.zerock.security.domain.AuthVO" alias="Auth" />
 	</typeAliases>
 	<!-- mapper 정의 ========================================= -->
 	<mappers>
