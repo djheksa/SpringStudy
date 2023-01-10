@@ -1,9 +1,17 @@
 package org.zerock.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.zerock.security.domain.AuthVO;
 
 import lombok.extern.log4j.Log4j;
 
@@ -28,6 +36,24 @@ public class CommonController {
 		if(logout != null) {
 			model.addAttribute("logout","LogOut!!");
 		}
+	}
+	
+	@GetMapping("/modelTest")
+	public String modalTest() {
+		
+		return "reviewEdit2";
+	}
+	
+	@PostMapping("/post")
+	public void testPost(@ModelAttribute("auth") AuthVO auth,Model model) {
+		model.addAttribute("testAuth",auth);
+		
+	}
+	
+	@PostMapping(value = "/rest/testpost", produces="application/json;charset=utf-8")
+	@ResponseBody
+	public AuthVO restTestPost(@RequestBody AuthVO auth) {
+		return auth;
 	}
 	
 	@GetMapping("/customLogout")
