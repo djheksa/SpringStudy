@@ -6,11 +6,12 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
-	
+
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
-	<!-- Aspect 빈 등록 -->
-<!-- 	<bean id="loggingAspect" class="com.common.LoggingAspect"></bean> -->
+	<context:component-scan base-package="org.zerock.aop"></context:component-scan>
 	
+	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>	
 	
+
 </beans>

@@ -29,31 +29,12 @@ public class CommonController {
 		//String error , String logout 변수타입과 이름은 고정임 스프링시큐리티에서 자동으로 값을 각 동작을 하였을때 값을 넣어주는 변수들임
 		log.info("error: "+error);
 		log.info("logout: "+logout);
-		model.addAttribute("result","test성공~!~!~!~");
 		if(error != null) {
 			model.addAttribute("error","Login Error Check Your Account");
 		}
 		if(logout != null) {
 			model.addAttribute("logout","LogOut!!");
 		}
-	}
-	
-	@GetMapping("/modelTest")
-	public String modalTest() {
-		
-		return "reviewEdit2";
-	}
-	
-	@PostMapping("/post")
-	public void testPost(@ModelAttribute("auth") AuthVO auth,Model model) {
-		model.addAttribute("testAuth",auth);
-		
-	}
-	
-	@PostMapping(value = "/rest/testpost", produces="application/json;charset=utf-8")
-	@ResponseBody
-	public AuthVO restTestPost(@RequestBody AuthVO auth) {
-		return auth;
 	}
 	
 	@GetMapping("/customLogout")

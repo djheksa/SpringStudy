@@ -1,8 +1,6 @@
 package com.my.study.controller;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import javax.inject.Inject;
 
@@ -42,7 +40,7 @@ public class ControllerTestSample {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(ctx).build();
 	}
 
-	//@Test
+	@Test
 	public void testGet() throws Exception {
 		log.info(mockMvc.perform(MockMvcRequestBuilders.get("/customLogin"))
 				.andReturn()
@@ -61,13 +59,15 @@ public class ControllerTestSample {
 				.getModelMap());
 	}
 
-	@Test
+//	@Test
 	public void testRestPost() throws Exception {
+		String json = "{\"userid\":\"hong\",\"auth\":\"ROLE_ADMIN\"}";
 		AuthVO vo = new AuthVO();
 		vo.setAuth("ROLE_ADMIN");
 		vo.setUserid("오득춘");
 		String jsonStr = new Gson().toJson(vo);
-		
+		log.info(jsonStr);
+		log.info("str::::"+json);
 		log.info(
 				mockMvc
 				.perform(MockMvcRequestBuilders.post("/rest/testpost")
@@ -79,4 +79,6 @@ public class ControllerTestSample {
 				.andReturn()
 				);
 	}
+	
+	
 }
